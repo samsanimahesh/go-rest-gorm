@@ -17,12 +17,12 @@ func NewTagsRepositoryImpl(Db *gorm.DB) TagsRepository {
 	return &TagsRepositoryImpl{Db: Db}
 }
 
-func (t TagsRepositoryImpl) Save(tags model.Tags) {
+func (t TagsRepositoryImpl) Save(tags models.Tags) {
 	result := t.Db.Create(&tags)
 	helper.ErrorPanic(result.Error)
 }
 
-func (t TagsRepositoryImpl) Update(tags model.Tags) {
+func (t TagsRepositoryImpl) Update(tags models.Tags) {
 	var updateTag = request.UpdateTagsRequest{
 		Id:   tags.Id,
 		Name: tags.Name,
@@ -32,13 +32,13 @@ func (t TagsRepositoryImpl) Update(tags model.Tags) {
 }
 
 func (t TagsRepositoryImpl) Delete(tagsId int) {
-	var tags model.Tags
+	var tags models.Tags
 	result := t.Db.Where("id = ?", tagsId).Delete(&tags)
 	helper.ErrorPanic(result.Error)
 }
 
-func (t TagsRepositoryImpl) FindById(tagsId int) (model.Tags, error) {
-	var tag model.Tags
+func (t TagsRepositoryImpl) FindById(tagsId int) (models.Tags, error) {
+	var tag models.Tags
 	result := t.Db.Find(&tag, tagsId)
 	if result != nil {
 		return tag, nil
@@ -47,8 +47,8 @@ func (t TagsRepositoryImpl) FindById(tagsId int) (model.Tags, error) {
 	}
 }
 
-func (t TagsRepositoryImpl) FindAll() []model.Tags {
-	var tags []model.Tags
+func (t TagsRepositoryImpl) FindAll() []models.Tags {
+	var tags []models.Tags
 	results := t.Db.Find(&tags)
 	helper.ErrorPanic(results.Error)
 	return tags

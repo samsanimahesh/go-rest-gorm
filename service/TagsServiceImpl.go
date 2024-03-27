@@ -24,7 +24,7 @@ func NewTagServiceImpl(tagRepository repository.TagsRepository, validate *valida
 func (t TagsServiceImpl) Create(tag request.CreateTagsRequest) {
 	err := t.Validate.Struct(tag)
 	helper.ErrorPanic(err)
-	tagModel := model.Tags{
+	tagModel := models.Tags{
 		Name: tag.Name,
 	}
 	t.TagRepository.Save(tagModel)

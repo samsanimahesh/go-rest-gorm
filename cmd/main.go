@@ -20,7 +20,7 @@ func main() {
 	db := config.DatabaseConnection()
 	validate := validator.New()
 
-	db.Table("tags").AutoMigrate(&model.Tags{})
+	db.Table("tags").AutoMigrate(&models.Tags{})
 
 	//Init Repository
 	tagRepository := repository.NewTagsRepositoryImpl(db)
